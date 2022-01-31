@@ -1,1 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+
+$greenColor: #57baa9;
+$darkGreenColor: #5e8b83;
+
+.bg {
+    background-color: #f4f5fa;
+    padding: 3rem;
+    padding-top: 6rem;
+
+    div {
+        background-color: #fff;
+    }
+}
+
+table {
+    thead {
+        background-color: #f4f5fa;
+    }
+}
+
+nav {
+    background: $greenColor;
+    color: #fff;
+
+    h1 {
+        -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+    }
+    .header {
+        padding-left: 3rem;
+        padding-right: 3rem;
+        width: 100%;
+    }
+}
+
+// Buttons
+.btn-green {
+    background: $greenColor !important;
+    color: #FFF;
+}
+.btn-green:hover {
+    background: $darkGreenColor !important;
+    color: #FFF;
+}
+.btn-outline-green {
+    background: #FFF !important;
+    border: 1px solid $greenColor;
+    color: $darkGreenColor;
+}
+
+.btn-outline-green:hover {
+    background: $greenColor !important;
+    color: #FFF;
+}
