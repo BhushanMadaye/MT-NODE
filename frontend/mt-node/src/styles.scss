@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 $greenColor: #57baa9;
-$darkGreenColor: #5e8b83;
+$darkGreenColor: #30885f;
 
 .bg {
     background-color: #f4f5fa;
     padding: 3rem;
     padding-top: 6rem;
+    height: 100vh;
 
     div {
         background-color: #fff;
@@ -39,18 +40,27 @@ nav {
 .btn-green {
     background: $greenColor !important;
     color: #FFF;
+    outline: unset;
 }
 .btn-green:hover {
     background: $darkGreenColor !important;
     color: #FFF;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+}
+.btn:focus {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
 }
 .btn-outline-green {
     background: #FFF !important;
     border: 1px solid $greenColor;
     color: $darkGreenColor;
+    outline: unset;
 }
 
 .btn-outline-green:hover {
     background: $greenColor !important;
     color: #FFF;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

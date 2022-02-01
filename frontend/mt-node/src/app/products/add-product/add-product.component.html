@@ -1,0 +1,42 @@
+<div class="dialog">
+    <div class="dialog-header">
+        <h2>{{data.action | titlecase}} Product</h2>
+
+    </div>
+    <mat-divider></mat-divider>
+    <div class="dialog-body">
+        <form [formGroup]="productForm">
+            <div class="row py-3">
+                <div class="col-12">
+                    <p>
+                        <mat-label>Category Name</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-select formControlName="categoryId">
+                                <mat-option *ngFor="let item of categoryList" [value]="item.categoryId">
+                                    {{item.categoryName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Category name required</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+
+                <div class="col-12">
+                    <p>
+                        <mat-label>Product Name</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput placeholder="Add a product" formControlName="productName"
+                                autocomplete="off">
+                            <mat-error>Product name required</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="dialog-footer d-flex justify-content-end align-items-center pt-3">
+        <button type="button" class="btn btn-green rounded-pill ms-3" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-green rounded-pill ms-3" (click)="submit()">{{data.action | titlecase}}</button>
+    </div>
+</div>

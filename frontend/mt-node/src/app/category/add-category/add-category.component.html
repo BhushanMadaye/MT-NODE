@@ -1,0 +1,27 @@
+<div class="dialog">
+    <div class="dialog-header">
+        <h2>Add Category</h2>
+        
+    </div>
+    <mat-divider ></mat-divider>
+    <div class="dialog-body">
+        <form [formGroup]="categoryForm">
+            <div class="row py-3">
+                <div class="col-12">
+                    <p>
+                        <mat-label>Category Name</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput placeholder="Add a category" formControlName="categoryName" autocomplete="false">
+                            <mat-error>Category name required</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <mat-divider ></mat-divider>
+    <div class="dialog-footer d-flex justify-content-end align-items-center pt-3">
+        <button type="button" class="btn btn-green rounded-pill ms-3" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-green rounded-pill ms-3" (click)="submit()">Add</button>
+    </div>
+</div>
