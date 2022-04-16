@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ICategory } from '../../_models';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 
 const CATEGORY_LIST = [
@@ -10,10 +11,6 @@ const CATEGORY_LIST = [
   { categoryId: 5, categoryName: 'Toys' },
 ]
 
-export interface ICategory {
-  categoryId: number;
-  categoryName: string;
-}
 
 @Component({
   selector: 'app-category-list',

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IProduct } from '../../_models';
 import { AddProductComponent } from '../add-product/add-product.component';
 
 const PRODUCT_LIST = [
@@ -16,12 +17,6 @@ const PRODUCT_LIST = [
 
 ]
 
-export interface IProduct {
-  categoryId: number;
-  categoryName: string;
-  productId: number;
-  productName: string;
-}
 
 @Component({
   selector: 'app-product-list',

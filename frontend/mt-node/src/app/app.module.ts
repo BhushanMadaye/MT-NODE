@@ -8,6 +8,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http'
 /**material */
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
