@@ -7,8 +7,10 @@ router.post('/', products.AddProduct)
 
 router.get('/', products.GetProduct)
 
-router.put('/', products.UpdateProduct)
+router.get('/:id', products.GetProductByID)
 
-router.delete('/', products.DeleteProduct)
+router.put('/:id', products.UpdateProduct)
+
+router.delete('/:id', products.DeleteProduct)
 
 module.exports = router

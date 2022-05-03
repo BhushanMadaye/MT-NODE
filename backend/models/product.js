@@ -3,7 +3,13 @@ module.exports = (sequelize, DataTypes) => {
         categoryID: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            // foreignKey: true
         },
+        // categoryID:{
+        //     type: DataTypes.INTEGER,
+        //     field: 'categoryID',
+        //     allowNull: true,
+        // },
         productID: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -17,9 +23,15 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'products'
     });
 
-    Product.associate = (models) => {
-        Product.belongsTo(models.category, { foreignKey: 'categoryID', as: 'category' });
-    }
+    // Product.associate = (models) => {
+    //     console.log(models);
+    //     console.log(`-----------------`);
+    //     Product.hasOne(models.category, { foreignKey: 'categoryID', as: 'category' });
+    // }
+
+    // Product.associate = function(models) {
+    //     Product.belongsTo(models.category, { foreignKey: 'categoryID', as: 'category'})
+    // }
 
     return Product;
 };

@@ -1,26 +1,36 @@
 const db = require('../models')
 const Category = db.category
 
-exports.AddCategory = (req, res, next) => {
-    console.log(req.params);
-    
-    res.send('AddCategory')
+exports.AddCategory = async (req, res, next) => {
+    const category = await Category.create(req.body)
+    console.log(category)
+    res.send(category)
 }
 
 exports.GetCategory = async (req, res, next) => {
-    for (let index = 0; index < 10; index++) {
-        const categoryObj = { categoryName: `test${index}` }
-        const category = await Category.create(categoryObj)
-    }
-    res.send('All done')
+    const categories = await Category.findAll()
+    res.send(categories)
 }
 
-exports.UpdateCategory = (req, res, next) => {
-    console.log(req.params);
-    res.send('UpdateCategory')
+exports.GetCategoryByID = async (req, res, next) => {
+    const { id } = req.params
+    const category = await Category.findByPk(id)
+    res.send(category)
 }
 
-exports.DeleteCategory = (req, res, next) => {
-    console.log(req.params);
-    res.send('DeleteCategory')
+exports.UpdateCategory = async (req, res, next) => {
+    const { id } = req.params
+    const category = await Category.update(
+        { ...req.body },
+        { where: { categoryID: id } }
+    )
+    res.send(category)
+}
+
+exports.DeleteCategory = async (req, res, next) => {
+    const { id } = req.params
+    await Category.destroy({
+        where: { categoryID: id }
+    })
+    res.sendStatus(200)
 }

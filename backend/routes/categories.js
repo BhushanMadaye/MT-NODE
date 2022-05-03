@@ -7,8 +7,10 @@ router.post('/', categories.AddCategory)
 
 router.get('/', categories.GetCategory)
 
-router.put('/', categories.UpdateCategory)
+router.get('/:id', categories.GetCategoryByID)
 
-router.delete('/', categories.DeleteCategory)
+router.put('/:id', categories.UpdateCategory)
+
+router.delete('/:id', categories.DeleteCategory)
 
 module.exports = router

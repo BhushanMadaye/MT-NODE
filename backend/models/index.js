@@ -21,5 +21,7 @@ db.sequelize = sequelize;
 db.category = require("./category")(sequelize, Sequelize);
 db.product = require("./product")(sequelize, Sequelize);
 
+// db.category.hasOne(db.product, { foreignKey: { name: 'categoryID' } })
+// db.product.belongsTo(db.category)
 
 module.exports = db;
