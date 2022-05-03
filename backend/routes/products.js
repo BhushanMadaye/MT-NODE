@@ -5,7 +5,7 @@ const products = require('../controllers/products')
 
 router.post('/', products.AddProduct)
 
-router.get('/', products.GetProduct)
+router.get('/', products.GetAllProduct)
 
 router.get('/:id', products.GetProductByID)
 

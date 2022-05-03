@@ -1,27 +1,31 @@
 const db = require('../models')
 const Product = db.product
+const { paginationFromTo } = require('../helper/pagination')
 
 exports.AddProduct = async (req, res, next) => {
     const product = await Product.create(req.body)
-    console.log(product)
-    res.send(`AddedProduct: ${product}`)
+    res.send(product)
 }
 
-exports.GetProduct = async (req, res, next) => {
-    const products = await Product.findAll({
-        // include: [
-        //     {
-        //         model: db.category,
-        //         // as: 'category',
-        //         // attributes: ['categoryID', 'categoryName']
-        //     }
-        // ],
-        // include: [db.category]
-        // include: [{
-        //     model: db.category,
-        //     as: 'category',
-        // }]
-      })
+exports.GetAllProduct = async (req, res, next) => {
+    // const products = await Product.findAll({
+    //     // include: [
+    //     //     {
+    //     //         model: db.category,
+    //     //         // as: 'category',
+    //     //         // attributes: ['categoryID', 'categoryName']
+    //     //     }
+    //     // ],
+    //     // include: [db.category]
+    //     // include: [{
+    //     //     model: db.category,
+    //     //     as: 'category',
+    //     // }]
+    //   })
+    const { from, to } = req.query
+    const params = (!from && !to) ? {} : paginationFromTo({ from, to })
+    console.log({ params });
+    const products = await Product.findAndCountAll(params)
     res.send(products)
 }
 

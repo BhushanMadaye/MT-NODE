@@ -1,5 +1,6 @@
 const db = require('../models')
 const Category = db.category
+const { paginationFromTo } = require('../helper/pagination')
 
 exports.AddCategory = async (req, res, next) => {
     const category = await Category.create(req.body)
@@ -7,8 +8,10 @@ exports.AddCategory = async (req, res, next) => {
     res.send(category)
 }
 
-exports.GetCategory = async (req, res, next) => {
-    const categories = await Category.findAll()
+exports.GetAllCategory = async (req, res, next) => {
+    const { from, to } = req.query
+    const params = (!from && !to) ?  {} : paginationFromTo({ from, to })
+    const categories = await Category.findAndCountAll(params)
     res.send(categories)
 }
 

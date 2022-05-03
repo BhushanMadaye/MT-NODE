@@ -5,7 +5,7 @@ const categories = require('../controllers/categories')
 
 router.post('/', categories.AddCategory)
 
-router.get('/', categories.GetCategory)
+router.get('/', categories.GetAllCategory)
 
 router.get('/:id', categories.GetCategoryByID)
 
