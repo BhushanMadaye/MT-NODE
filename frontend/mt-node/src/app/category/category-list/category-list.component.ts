@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from 'src/app/_services';
 import { ICategory } from '../../_models';
 import { AddCategoryComponent } from '../add-category/add-category.component';
 
@@ -20,15 +22,17 @@ const CATEGORY_LIST = [
 export class CategoryListComponent implements OnInit {
   categoryList: ICategory[] = [];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private categoryService: CategoryService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.addCategory();
+    // this.addCategory();
     this.getCategories();
   }
 
   getCategories() {
-    this.categoryList = CATEGORY_LIST
+    this.categoryService.getCatgories().subscribe(res => {
+      this.categoryList = res
+    })
   }
 
   addCategory() {
@@ -38,7 +42,12 @@ export class CategoryListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log(result);
+      if (!result) return;
+      this.categoryService.addCategory(result).subscribe(res => {
+        this._toastr.success(res);
+        this.getCategories()
+      })
     });
   }
 
@@ -49,11 +58,18 @@ export class CategoryListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (!result) return;
+      this.categoryService.updateCategory(result).subscribe(res => {
+        this._toastr.success(res);
+        this.getCategories()
+      })
     });
   }
 
   deleteCategory(categoryId: number) {
-    // delete category 
+    this.categoryService.deleteCategory(categoryId).subscribe(res => {
+      this._toastr.success(res);
+      this.getCategories()
+    })
   }
 }

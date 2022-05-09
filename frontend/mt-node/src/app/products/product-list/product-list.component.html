@@ -23,16 +23,16 @@
                 <tbody>
 
                     <tr *ngFor="let item of productList">
-                        <td>{{item.productId}}</td>
+                        <td>{{item.productID}}</td>
                         <td>{{item.productName}}</td>
-                        <td>{{item.categoryId}}</td>
+                        <td>{{item.categoryID}}</td>
                         <td>{{item.categoryName}}</td>
                         <td class="d-flex justify-content-evenly">
                             <button type="button" class="btn btn-outline-green rounded-pill" (click)="editProduct(item)">Edit</button>
-                            <button type="button" class="btn btn-outline-green rounded-pill" (click)="deleteProduct(item.productId)">Delete</button>
+                            <button type="button" class="btn btn-outline-green rounded-pill" (click)="deleteProduct(item.productID)">Delete</button>
                         </td>
                     </tr>
-                    
+
                 </tbody>
             </table>
         </div>

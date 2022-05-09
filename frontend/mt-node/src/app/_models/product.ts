@@ -1,6 +1,6 @@
 export interface IProduct {
-    categoryId: number;
-    categoryName: string;
-    productId: number;
+    categoryID: number;
+    categoryName?: string;
+    productID: number;
     productName: string;
 }

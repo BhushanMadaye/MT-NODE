@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { ProductService } from 'src/app/_services';
 import { IProduct } from '../../_models';
 import { AddProductComponent } from '../add-product/add-product.component';
 
@@ -27,15 +29,17 @@ export class ProductListComponent implements OnInit {
 
   productList: IProduct[] = [];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private productService: ProductService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.addProduct();
+    // this.addProduct();
     this.getProducts();
   }
 
   getProducts() {
-    this.productList = PRODUCT_LIST
+    this.productService.getProducts().subscribe(res => {
+      this.productList = res
+    })
   }
 
   addProduct() {
@@ -45,7 +49,11 @@ export class ProductListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.productService.addProduct(result).subscribe(res => {
+        if (!result) return;
+        this._toastr.success(res);
+        this.getProducts()
+      })
     });
   }
 
@@ -56,12 +64,19 @@ export class ProductListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (!result) return;
+      this.productService.updateProduct(result).subscribe(res => {
+        this._toastr.success(res);
+        this.getProducts()
+      })
     });
   }
 
   deleteProduct(categoryId: number) {
-    // delete category 
+    this.productService.deleteProduct(categoryId).subscribe(res => {
+      this._toastr.success(res);
+      this.getProducts()
+    })
   }
 
 }

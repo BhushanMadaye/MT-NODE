@@ -5,20 +5,37 @@ const { paginationFromTo } = require('../helper/pagination')
 exports.AddCategory = async (req, res, next) => {
     const category = await Category.create(req.body)
     console.log(category)
-    res.send(category)
+    if (category) {
+        res.status(200).json(`Category added successfully`)
+    } else {
+        res.status(400).json(category)
+    }
 }
 
 exports.GetAllCategory = async (req, res, next) => {
     const { from, to } = req.query
     const params = (!from && !to) ?  {} : paginationFromTo({ from, to })
-    const categories = await Category.findAndCountAll(params)
-    res.send(categories)
+    const categories = await Category.findAndCountAll({
+        ...params, 
+        order: [
+        ['categoryID', 'ASC']]
+    })
+    if (categories) {
+        res.status(200).send(categories)
+    } else {
+        res.status(400).json(category)
+    }
 }
 
 exports.GetCategoryByID = async (req, res, next) => {
     const { id } = req.params
     const category = await Category.findByPk(id)
-    res.send(category)
+    // res.send(category)
+    if (category) {
+        res.status(200).send(category)
+    } else {
+        res.status(400).json(category)
+    }
 }
 
 exports.UpdateCategory = async (req, res, next) => {
@@ -27,13 +44,23 @@ exports.UpdateCategory = async (req, res, next) => {
         { ...req.body },
         { where: { categoryID: id } }
     )
-    res.send(category)
+    // res.send(category)
+    if (category) {
+        res.status(200).json(`Category updated successfully`)
+    } else {
+        res.status(400).json(category)
+    }
 }
 
 exports.DeleteCategory = async (req, res, next) => {
     const { id } = req.params
-    await Category.destroy({
-        where: { categoryID: id }
-    })
-    res.sendStatus(200)
+    const category = await Category.findByPk(id)
+    if (category) {
+        await Category.destroy({
+            where: { categoryID: id }
+        })
+        res.status(200).json(`Category deleted successfully`)
+    } else {
+        res.status(400).json(`Category does not exist`)
+    }
 }

@@ -3,72 +3,68 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators'
 import { environment } from '../../environments/environment'
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
 import { ICategory } from '../_models';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private _toastr: ToastrService) { }
 
-
-  getCatgories(): Observable<any> {
-    return this.http.get(`${environment.SERVER_URL}/getCatgory`)
+  getCatgories(): Observable<any[]> {
+    return this.http.get<any>(`${environment.SERVER_URL}/categories`)
     .pipe(
-      map(res => res),
-      catchError(err => {
-        this._snackBar.open('Cannonball!!', 'Splash', {
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
+      map((res: any) => {
+        let balanceSummary:any [] = [];
+        res['rows'].forEach((ele: any) => {
+          const balanceSummaryData: ICategory = {
+            categoryID: ele.categoryID,
+            categoryName: ele.categoryName
+          }
+          balanceSummary.push(balanceSummaryData);
         });
+
+        return balanceSummary
+      }),
+      catchError(err => {
+        this._toastr.error('error', err.error);
         throw err;
       })
     )
   }
 
   addCategory(data: ICategory): Observable<any> {
-    return this.http.post(`${environment.SERVER_URL}/getCatgory`, data)
+    return this.http.post(`${environment.SERVER_URL}/categories`, data)
     .pipe(
       map(res => res),
       catchError(err => {
-        this._snackBar.open('Cannonball!!', 'Splash', {
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        });
+        this._toastr.error('error', err.error);
         throw err;
       })
     )
   }
 
   updateCategory(data: ICategory): Observable<any> {
-    return this.http.put(`${environment.SERVER_URL}/getCatgory`, data)
+    return this.http.put(`${environment.SERVER_URL}/categories/${data.categoryID}`, data)
     .pipe(
       map(res => res),
       catchError(err => {
-        this._snackBar.open('Cannonball!!', 'Splash', {
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        });
+        this._toastr.error('error', err.error);
         throw err;
       })
     )
   }
 
-  deleteCategory(categoryId: ICategory): Observable<any> {
-    return this.http.delete(`${environment.SERVER_URL}/getCatgory/${categoryId}`)
+  deleteCategory(categoryId: number): Observable<any> {
+    return this.http.delete(`${environment.SERVER_URL}/categories/${categoryId}`)
     .pipe(
-      map(res => res),
+      map(res => {
+        return res
+      }),
       catchError(err => {
-        this._snackBar.open('Cannonball!!', 'Splash', {
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        });
+        this._toastr.error('error', err.error);
         throw err;
       })
     )

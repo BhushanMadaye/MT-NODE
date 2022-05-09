@@ -38,6 +38,7 @@ export class AddCategoryComponent implements OnInit {
     if (this.categoryForm.invalid) {
       return this.categoryForm.markAllAsTouched();
     }
+    this.dialogRef.close(this.categoryForm.value)
 
   }
 

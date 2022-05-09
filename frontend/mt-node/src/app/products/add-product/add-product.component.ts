@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CategoryService } from 'src/app/_services';
 import { ICategory } from '../../_models';
 
 const CATEGORY_LIST = [
@@ -19,9 +20,9 @@ const CATEGORY_LIST = [
 export class AddProductComponent implements OnInit {
 
   productForm: FormGroup = this.fb.group({
-    categoryId: [],
-    categoryName: [null, [Validators.required]],
-    productId: [],
+    categoryID: [null, [Validators.required]],
+    categoryName: [null],
+    productID: [],
     productName: [null, [Validators.required]]
   });
   categoryList: ICategory[] = [];
@@ -29,6 +30,7 @@ export class AddProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddProductComponent>,
+    private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -41,7 +43,9 @@ export class AddProductComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryList = CATEGORY_LIST
+    this.categoryService.getCatgories().subscribe(res => {
+      this.categoryList = res
+    })
   }
 
   patchForm() {
@@ -49,14 +53,19 @@ export class AddProductComponent implements OnInit {
   }
 
   cancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   submit() {
     if (this.productForm.invalid) {
       return this.productForm.markAllAsTouched();
     }
-
+    const data = {
+      categoryID: this.productForm.controls.categoryId.value,
+      productID: this.productForm.controls.categoryId.value,
+      productName: this.productForm.controls.productName.value
+    }
+    this.dialogRef.close(data)
   }
 
 }

@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     const Product = sequelize.define("product", {
         categoryID: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            // allowNull: false,
             // foreignKey: true
         },
         // categoryID:{

@@ -29,11 +29,11 @@
                     </tr> -->
 
                     <tr *ngFor="let item of categoryList">
-                        <td>{{item.categoryId}}</td>
+                        <td>{{item.categoryID}}</td>
                         <td>{{item.categoryName}}</td>
                         <td class="d-flex justify-content-evenly">
                             <button type="button" class="btn btn-outline-green rounded-pill" (click)="editCategory(item)">Edit</button>
-                            <button type="button" class="btn btn-outline-green rounded-pill" (click)="deleteCategory(item.categoryId)">Delete</button>
+                            <button type="button" class="btn btn-outline-green rounded-pill" (click)="deleteCategory(item.categoryID)">Delete</button>
                         </td>
                     </tr>
                 </tbody>

@@ -11,8 +11,8 @@
                     <p>
                         <mat-label>Category Name</mat-label>
                         <mat-form-field class="w-100" appearance="outline">
-                            <mat-select formControlName="categoryId">
-                                <mat-option *ngFor="let item of categoryList" [value]="item.categoryId">
+                            <mat-select formControlName="categoryID" placeholder="Select Category">
+                                <mat-option *ngFor="let item of categoryList" [value]="item.categoryID">
                                     {{item.categoryName}}
                                 </mat-option>
                             </mat-select>
