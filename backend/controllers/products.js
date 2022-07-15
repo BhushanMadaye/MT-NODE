@@ -1,5 +1,6 @@
 const db = require('../models')
 const Product = db.product
+const Category = db.category
 const { paginationFromTo } = require('../helper/pagination')
 const { category } = require('../models')
 
@@ -15,7 +16,6 @@ exports.AddProduct = async (req, res, next) => {
 exports.GetAllProduct = async (req, res, next) => {
     const { from, to } = req.query
     const params = (!from && !to) ? {} : paginationFromTo({ from, to })
-    console.log({ params });
     const products = await Product.findAndCountAll({
         // include: db.category,
         include: {
@@ -49,14 +49,14 @@ exports.GetProductByID = async (req, res, next) => {
 
 exports.UpdateProduct = async (req, res, next) => {
     const { id } = req.params
-    const { categoryID } = req.body
-    const categoryExists = await Category.findByPk(categoryID)
+    const { categoryId } = req.body
+    const categoryExists = await Category.findByPk(categoryId)
 
     let product = null
     if (categoryExists) {
         product = await Product.update(
             { ...req.body },
-            { where: { productID: id } }
+            { where: { id: id } }
         )
     }
     if (product) {
@@ -71,7 +71,7 @@ exports.DeleteProduct = async (req, res, next) => {
     const product = await Product.findByPk(id)
     if (product) {
         await Product.destroy({
-            where: { productID: id }
+            where: { id: id }
         })
         res.status(200).json(`Product deleted successfully`)
     } else {

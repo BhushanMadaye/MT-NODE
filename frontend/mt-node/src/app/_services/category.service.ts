@@ -20,8 +20,8 @@ export class CategoryService {
         let balanceSummary:any [] = [];
         res['rows'].forEach((ele: any) => {
           const balanceSummaryData: ICategory = {
-            categoryID: ele.categoryID,
-            categoryName: ele.categoryName
+            id: ele.id,
+            name: ele.name
           }
           balanceSummary.push(balanceSummaryData);
         });
@@ -47,7 +47,7 @@ export class CategoryService {
   }
 
   updateCategory(data: ICategory): Observable<any> {
-    return this.http.put(`${environment.SERVER_URL}/categories/${data.categoryID}`, data)
+    return this.http.put(`${environment.SERVER_URL}/categories/${data.id}`, data)
     .pipe(
       map(res => res),
       catchError(err => {

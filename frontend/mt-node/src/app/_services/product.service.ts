@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IProduct } from '../_models';
+import { ICategory, IProduct } from '../_models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +20,10 @@ export class ProductService {
         let products:any [] = [];
         res['rows'].forEach((ele: any) => {
           const productData: IProduct = {
-            categoryID: ele.categoryID,
-            productID: ele.productID,
-            productName: ele.productName
+            categoryId: ele.categoryId,
+            id: ele.id,
+            name: ele.name,
+            category: this.mapToCategory(ele.category)
           }
           products.push(productData);
         });
@@ -34,6 +35,13 @@ export class ProductService {
         throw err;
       })
     )
+  }
+
+  mapToCategory(category: ICategory) {
+    return {
+      id: category.id,
+      name: category.name
+    }
   }
 
   addProduct(data: IProduct): Observable<any> {
@@ -48,7 +56,7 @@ export class ProductService {
   }
 
   updateProduct(data: IProduct): Observable<any> {
-    return this.http.put(`${environment.SERVER_URL}/products/${data.productID}`, data)
+    return this.http.put(`${environment.SERVER_URL}/products/${data.id}`, data)
     .pipe(
       map(res => res),
       catchError(err => {

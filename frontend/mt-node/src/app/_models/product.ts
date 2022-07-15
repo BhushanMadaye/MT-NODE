@@ -1,6 +1,8 @@
+import { ICategory } from "./category";
+
 export interface IProduct {
-    categoryID: number;
-    categoryName?: string;
-    productID: number;
-    productName: string;
+    categoryId: number;
+    category?: ICategory;
+    id: number;
+    name: string;
 }

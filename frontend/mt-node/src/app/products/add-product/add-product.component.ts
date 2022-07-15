@@ -20,10 +20,10 @@ const CATEGORY_LIST = [
 export class AddProductComponent implements OnInit {
 
   productForm: FormGroup = this.fb.group({
-    categoryID: [null, [Validators.required]],
+    categoryId: [null, [Validators.required]],
     categoryName: [null],
-    productID: [],
-    productName: [null, [Validators.required]]
+    id: [],
+    name: [null, [Validators.required]]
   });
   categoryList: ICategory[] = [];
 
@@ -49,7 +49,11 @@ export class AddProductComponent implements OnInit {
   }
 
   patchForm() {
-    this.productForm.patchValue(this.data.data);
+    this.productForm.patchValue({
+      id: this.data.data.id,
+      name: this.data.data.name,
+      categoryId: this.data.data.categoryId,
+    });
   }
 
   cancel() {
@@ -61,9 +65,9 @@ export class AddProductComponent implements OnInit {
       return this.productForm.markAllAsTouched();
     }
     const data = {
-      categoryID: this.productForm.controls.categoryId.value,
-      productID: this.productForm.controls.categoryId.value,
-      productName: this.productForm.controls.productName.value
+      categoryId: this.productForm.controls.categoryId.value,
+      id: this.productForm.controls.id.value,
+      name: this.productForm.controls.name.value
     }
     this.dialogRef.close(data)
   }

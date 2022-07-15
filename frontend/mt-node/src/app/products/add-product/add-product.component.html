@@ -11,9 +11,9 @@
                     <p>
                         <mat-label>Category Name</mat-label>
                         <mat-form-field class="w-100" appearance="outline">
-                            <mat-select formControlName="categoryID" placeholder="Select Category">
-                                <mat-option *ngFor="let item of categoryList" [value]="item.categoryID">
-                                    {{item.categoryName}}
+                            <mat-select formControlName="categoryId" placeholder="Select Category">
+                                <mat-option *ngFor="let item of categoryList" [value]="item.id">
+                                    {{item.name}}
                                 </mat-option>
                             </mat-select>
                             <mat-error>Category name required</mat-error>
@@ -25,7 +25,7 @@
                     <p>
                         <mat-label>Product Name</mat-label>
                         <mat-form-field class="w-100" appearance="outline">
-                            <input matInput placeholder="Add a product" formControlName="productName"
+                            <input matInput placeholder="Add a product" formControlName="name"
                                 autocomplete="off">
                             <mat-error>Product name required</mat-error>
                         </mat-form-field>

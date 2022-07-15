@@ -1,3 +1,4 @@
+const error = require('./middlewares/error')
 const express = require('express')
 const routes = require('./routes/index')
 const cors = require('cors')
@@ -15,7 +16,14 @@ db.sequelize.sync();
 //   console.log("Drop and re-sync db.");
 // });
 
+app.use((req, res, next) => {
+    req.username = 'apollo';
+    next()
+})
+
 app.use('/api', routes)
+
+app.use(error)
 
 const PORT = 3000
 

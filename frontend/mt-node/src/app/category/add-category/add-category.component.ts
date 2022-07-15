@@ -10,8 +10,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddCategoryComponent implements OnInit {
 
   categoryForm: FormGroup = this.fb.group({
-    categoryId: [],
-    categoryName: [null, [Validators.required]]
+    id: [],
+    name: [null, [Validators.required]]
   });
 
   constructor(
@@ -27,7 +27,10 @@ export class AddCategoryComponent implements OnInit {
   }
 
   patchForm() {
-    this.categoryForm.patchValue(this.data.data);
+    this.categoryForm.patchValue({
+      id: this.data.data.id,
+      name: this.data.data.name,
+    });
   }
 
   cancel() {
