@@ -13,27 +13,21 @@ exports.AddProduct = async (req, res, next) => {
 }
 
 exports.GetAllProduct = async (req, res, next) => {
-    // const products = await Product.findAll({
-    //     // include: [
-    //     //     {
-    //     //         model: db.category,
-    //     //         // as: 'category',
-    //     //         // attributes: ['categoryID', 'categoryName']
-    //     //     }
-    //     // ],
-    //     // include: [db.category]
-    //     // include: [{
-    //     //     model: db.category,
-    //     //     as: 'category',
-    //     // }]
-    //   })
     const { from, to } = req.query
     const params = (!from && !to) ? {} : paginationFromTo({ from, to })
     console.log({ params });
     const products = await Product.findAndCountAll({
+        // include: db.category,
+        include: {
+            model: db.category,
+            /** Attributes for foreign object */
+            attributes: { exclude: ['updatedAt', 'createdAt'] } 
+        },
+        /** Attributes for primary object */
+        attributes: { exclude: ['updatedAt', 'createdAt'] },
         ...params, 
         order: [
-        ['productID', 'ASC']]
+        ['id', 'ASC']]
     })
     // res.send(products)
     if (products) {

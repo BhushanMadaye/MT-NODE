@@ -13,17 +13,22 @@ exports.AddCategory = async (req, res, next) => {
 }
 
 exports.GetAllCategory = async (req, res, next) => {
-    const { from, to } = req.query
-    const params = (!from && !to) ?  {} : paginationFromTo({ from, to })
-    const categories = await Category.findAndCountAll({
-        ...params, 
-        order: [
-        ['categoryID', 'ASC']]
-    })
-    if (categories) {
-        res.status(200).send(categories)
-    } else {
-        res.status(400).json(category)
+    try {
+        const { from, to } = req.query
+        const params = (!from && !to) ?  {} : paginationFromTo({ from, to })
+        const categories = await Category.findAndCountAll({
+            ...params, 
+            order: [
+            ['id', 'ASC']]
+        })
+        console.log(categories)
+        if (categories) {
+            res.status(200).send(categories)
+        } else {
+            res.status(400).json(category)
+        }        
+    } catch (error) {
+        console.log(error.message)
     }
 }
 

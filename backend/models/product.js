@@ -1,22 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-    const Product = sequelize.define("product", {
-        categoryID: {
+    return sequelize.define("product", {
+        id: {
             type: DataTypes.INTEGER,
-            // allowNull: false,
-            // foreignKey: true
-        },
-        // categoryID:{
-        //     type: DataTypes.INTEGER,
-        //     field: 'categoryID',
-        //     allowNull: true,
-        // },
-        productID: {
-            type: DataTypes.INTEGER,
+            allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
-        productName: {
-            type: DataTypes.STRING
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     },{
         freezeTableName: true,
@@ -33,5 +25,4 @@ module.exports = (sequelize, DataTypes) => {
     //     Product.belongsTo(models.category, { foreignKey: 'categoryID', as: 'category'})
     // }
 
-    return Product;
 };
