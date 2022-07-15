@@ -10,7 +10,7 @@ app.use(cors())
 
 const db = require("./models");
 db.sequelize.sync();
-// drop the table if it already exists
+/** drop the table if it already exists */
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
