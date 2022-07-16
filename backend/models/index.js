@@ -21,6 +21,7 @@ db.sequelize = sequelize;
 db.category = require("./category")(sequelize, Sequelize);
 db.product = require("./product")(sequelize, Sequelize);
 
+// db.category.hasMany(db.product)
 db.category.hasMany(db.product, 
     {
         foreignKey:

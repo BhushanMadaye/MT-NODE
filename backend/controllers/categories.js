@@ -21,8 +21,7 @@ exports.GetAllCategory = async (req, res, next) => {
         const params = (!from && !to) ? {} : paginationFromTo({ from, to })
         const categories = await Category.findAndCountAll({
             ...params,
-            order: [
-                ['id', 'ASC']]
+            order: [['id', 'ASC']]
         })
         if (categories) {
             res.status(200).send(categories)
