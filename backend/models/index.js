@@ -1,6 +1,6 @@
 const dbConfig = require("../config/db.config.js");
 
-const Sequelize = require("sequelize");
+const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
@@ -20,6 +20,7 @@ db.sequelize = sequelize;
 
 db.category = require("./category")(sequelize, Sequelize);
 db.product = require("./product")(sequelize, Sequelize);
+db.user = require("./user")(sequelize, Sequelize);
 
 // db.category.hasMany(db.product)
 db.category.hasMany(db.product, 
