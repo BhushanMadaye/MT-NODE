@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const db = require('../models')
 const User = db.user
 
@@ -6,9 +7,13 @@ exports.AddUser = async (req, res, next) => {
         const { name, email, password } = req.body;
         const userExists = await User.findOne({ where: { email } })
         if (userExists) return res.status(400).json(`User already registered`)
-        const user = await User.create({ name, email, password });
+
+        const salt = await bcrypt.genSalt(10);
+        const hashed = await bcrypt.hash(password, salt);
+
+        const user = await User.create({ name, email, password: hashed });
         if (user) {
-           return res.status(200).json(`User registered`)
+            return res.status(200).json(`User registered`)
         }
     } catch (error) {
         return res.status(400).json(error.message)
