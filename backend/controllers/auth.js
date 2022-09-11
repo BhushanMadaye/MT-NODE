@@ -14,6 +14,5 @@ exports.AuthenticateUser = async (req, res, next) => {
     console.log({ user : user.dataValues })
     const token = jwt.sign(user.dataValues, `jwtPrivateKey`);
 
-    return res.header('x-auth', 'AP majhi item').status(200).json(token)
-
+    res.status(200).send({ token })
 }

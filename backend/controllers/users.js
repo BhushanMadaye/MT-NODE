@@ -31,6 +31,16 @@ exports.GetUsers = async (req, res, next) => {
     }
 }
 
+exports.GetUser = async (req, res, next) => {
+    const { id } = req.param;
+    const user = await User.find({ where: { id }});
+    if (user) {
+        res.status(200).json(user)
+    } else {
+        res.status(400).json(`User not registered`)
+    }
+}
+
 exports.LoginUser = async (req, res, next) => {
     const { name, email, password } = req.body;
 

@@ -6,8 +6,9 @@ const products = require('./products')
 const time = require('./time')
 const users = require('./users')
 const auth = require('./auth')
+const authenticate = require('../middlewares/auth')
 
-router.use('/categories', categories)
+router.use('/categories', authenticate, categories)
 
 router.use('/products', products)
 
